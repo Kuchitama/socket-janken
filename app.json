@@ -1,0 +1,6 @@
+{
+  "name": "socket-janken",
+  "description": "This project is sample application of WebSocket.",
+  "repository": "https://github.com/Kuchitama/socket-janken",
+  "keywords": ["Playframework", "scala", "WebSocket"]
+}
