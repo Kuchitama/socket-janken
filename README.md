@@ -6,9 +6,9 @@ This project is sample application of WebSocket.
 
 # How to check behavior
 
-1.Access here [http://www.websocket.org/echo.html](http://www.websocket.org/echo.html)
-2.Input endpoint url `ws://limitless-tor-2644.herokuapp.com/socket` to `Location` and `Connect`.
-3.Send any messages.
+1. Access here [http://www.websocket.org/echo.html](http://www.websocket.org/echo.html)
+2. Input endpoint url `ws://limitless-tor-2644.herokuapp.com/socket` to `Location` and `Connect`.
+3. Send any messages.
 
 ## Messages
 
