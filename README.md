@@ -3,7 +3,7 @@ This is WebSocket Sample App.
 
 This project is sample application of WebSocket.
 
-[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy?template=https://github.com/heroku/node-js-sample)
+[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy?template=https://github.com/Kuchitama/socket-janken)
 
 
 # How to check behavior
