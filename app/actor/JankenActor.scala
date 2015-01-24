@@ -13,8 +13,8 @@ class JankenActor(out: ActorRef) extends Actor {
       self ! PoisonPill
     }
     case msg: String if Janken.Figure.withNameOpt(msg).isDefined => {
-      val result = Janken.Figure.withName(msg) vs Rival.figure
-      out ! s"You ${result.name.toLowerCase}!"
+      val res = Janken.Figure.withName(msg) vs Rival.figure
+      out ! s"You ${res.result.name.toLowerCase}! You: ${res.you} Rival: ${res.rival}"
     }
     case msg : String => out ! msg
   }

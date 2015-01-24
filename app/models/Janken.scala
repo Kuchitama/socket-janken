@@ -13,16 +13,21 @@ object Janken {
   }
   sealed trait Figure {
     val name = toString
-    def vs(rival: Figure): Result = {
+    def vs(rival: Figure): JankenResult = {
       import Figure._
       import Result._
-      this match {
+      val res = this match {
         case Gu     => if (rival == Choki) Win  else if(rival == Pa) Lose     else Draw
         case Choki  => if (rival == Pa) Win     else if(rival == Gu) Lose     else Draw
         case Pa     => if (rival == Gu) Win     else if(rival == Choki) Lose  else Draw
       }
+
+      JankenResult(this, rival, res)
     }
+
   }
+
+  case class JankenResult(you: Figure, rival: Figure, result: Result)
 
   object Result {
     val values: List[Result] = List(Win, Lose)
