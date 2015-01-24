@@ -1,7 +1,6 @@
 package models
 
-case class Janken(figure: Janken.Figure)
-object Janken {
+package Janken {
   object Figure {
     val values: List[Figure] = List(Gu, Choki, Pa)
     def withName(name: String): Figure = withNameOpt(name).getOrElse(throw new IllegalArgumentException(s"Argument[${name}] is not name of Janken Figure."))
