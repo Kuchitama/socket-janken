@@ -1,9 +1,14 @@
-lazy val root = (project in file(".")).enablePlugins(PlayScala).settings(rootSettings:_*)
+lazy val root = (project in file(".")).enablePlugins(PlayScala).settings(serverSettings: _*)
+lazy val client = (project in file("client")).settings(clientSettings:_*)
 
-lazy val commonSettings = Seq(
+val commonSettings = Seq(
   version := "1.0-SNAPSHOT",
-  scalaVersion := "2.11.1",
-  libraryDependencies := Seq(
+  scalaVersion := "2.11.1"
+)
+
+val serverSettings = commonSettings ++ Seq(
+  name := """socket-janken""",
+  libraryDependencies ++= Seq(
     jdbc,
     anorm,
     cache,
@@ -11,11 +16,7 @@ lazy val commonSettings = Seq(
   )
 )
 
-lazy val rootSettings = commonSettings ++ Seq(
-  name := """socket-janken"""
+lazy val clientSettings = commonSettings ++ Seq(
+  name := "socket-jason-client",
+  libraryDependencies ++= Seq("org.eclipse.jetty.websocket" % "websocket-client" % "9.2.8.v20150217")
 )
-
-//lazy val client = (project in file("./client")).settings(clientSettings:_*)
-//lazy val clientSettings = commonSettings ++ Seq(
-//  libraryDependencies := Seq("org.eclipse.jetty.websocket" % "websocket-client" % "9.2.6.v20141205")
-//)
