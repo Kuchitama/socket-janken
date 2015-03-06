@@ -9,6 +9,14 @@ import org.eclipse.jetty.websocket.client.{ ClientUpgradeRequest, WebSocketClien
 
 import scala.io.Source
 
+import akka.actor._
+
+class JankenActor extends Actor {
+  def receive = {
+    case msg: String => println(msg)  // output message
+  }
+}
+
 object SocketJankenClient {
   lazy val endPoint = s"ws://limitless-tor-2644.herokuapp.com/socket"
   lazy val uri = WSURI.toWebsocket(endPoint)
@@ -16,10 +24,12 @@ object SocketJankenClient {
   def main(args: Array[String]): Unit = {
     import scala.util.control.Breaks._
 
+    val jankenActor = ActorSystem("system").actorOf(Props[JankenActor])
+
     val client = new WebSocketClient()
     try {
       client.start()
-      val socket = new JankenSocket()
+      val socket = new JankenSocket(jankenActor)
       val request = new ClientUpgradeRequest()
 
       println(s"start to connect ${uri}")
@@ -47,7 +57,7 @@ object SocketJankenClient {
    * Socket to Janken
    */
   @WebSocket(maxTextMessageSize = 64 * 1024)
-  private class JankenSocket() {
+  private class JankenSocket(actor: ActorRef) {
     private val connectionLatch = new CountDownLatch(1)
     private val closeLatch = new CountDownLatch(1)
 
@@ -86,8 +96,7 @@ object SocketJankenClient {
 
     @OnWebSocketMessage
     def onMessage(message: String): Unit = {
-      // output message
-      println(s"got message: ${message}")
+      actor ! message
     }
   }
 }

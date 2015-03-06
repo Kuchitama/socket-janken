@@ -18,5 +18,7 @@ val serverSettings = commonSettings ++ Seq(
 
 lazy val clientSettings = commonSettings ++ Seq(
   name := "socket-jason-client",
-  libraryDependencies ++= Seq("org.eclipse.jetty.websocket" % "websocket-client" % "9.2.8.v20150217")
+  libraryDependencies ++= Seq(
+    "org.eclipse.jetty.websocket" % "websocket-client" % "9.2.8.v20150217",
+    "com.typesafe.akka" %% "akka-actor" % "2.3.9")
 )
