@@ -2,6 +2,7 @@ package com.github.kuchitama.socketjanken.client
 
 import java.util.concurrent.{ TimeUnit, CountDownLatch }
 
+import org.eclipse.jetty.util.ssl.SslContextFactory
 import org.eclipse.jetty.websocket.api.util.WSURI
 import org.eclipse.jetty.websocket.api.{ StatusCode, Session }
 import org.eclipse.jetty.websocket.api.annotations.{ OnWebSocketMessage, OnWebSocketConnect, OnWebSocketClose, WebSocket }
@@ -18,15 +19,20 @@ class JankenActor extends Actor {
 }
 
 object SocketJankenClient {
-  lazy val endPoint = s"ws://limitless-tor-2644.herokuapp.com/socket"
+  lazy val endPoint = s"wss://limitless-tor-2644.herokuapp.com/socket"
   lazy val uri = WSURI.toWebsocket(endPoint)
+
+  val contextFactory = {
+    val sslContextFactory = new SslContextFactory()
+    sslContextFactory
+  }
 
   def main(args: Array[String]): Unit = {
     import scala.util.control.Breaks._
 
     val jankenActor = ActorSystem("system").actorOf(Props[JankenActor])
 
-    val client = new WebSocketClient()
+    val client = new WebSocketClient(contextFactory)
     try {
       client.start()
       val socket = new JankenSocket(jankenActor)
